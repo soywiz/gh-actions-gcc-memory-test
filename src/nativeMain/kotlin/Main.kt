@@ -11,8 +11,11 @@ fun main() {
         }
         val ba2 = ByteArray((0.5 * 1024 * 1024 * 1024).toInt())
         memScoped {
-            val mem = allocArray<ByteVar>(128 * 1024)
+            val memStack = allocArray<ByteVar>(128 * 1024)
+            memset(memStack, (n  * 777777777).toInt(), 128 * 1024)
         }
+        val memMalloc = malloc(128 * 1024)
+        memset(memMalloc, (n  * 777777777).toInt(), 128 * 1024)
 
         kotlin.native.internal.GC.collect()
         base.add(ba) // 1GB per ByteArray
